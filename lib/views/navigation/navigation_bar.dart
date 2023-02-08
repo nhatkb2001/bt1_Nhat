@@ -1,10 +1,10 @@
-import 'package:exercise_1/views/navigation/curvedNavigationItem.dart';
+import 'package:exercise_1/views/navigation/curved_navigation_Item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants/colors/color.dart';
 import '../../constants/vector.dart';
-import 'navigation.dart';
+import 'curved_navigation_bar.dart';
 
 class navigationBar extends StatefulWidget {
   navigationBar({

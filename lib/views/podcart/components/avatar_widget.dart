@@ -3,15 +3,21 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../constants/colors/color.dart';
-import '../../constants/vector.dart';
+import '../../../constants/colors/color.dart';
+import '../../../constants/vector.dart';
 
-class avatarWidget extends StatelessWidget {
-  avatarWidget({super.key, required this.image, required this.title});
+class AvatarWidget extends StatefulWidget {
+  AvatarWidget({super.key, required this.image, required this.title});
 
   String image;
   String title;
 
+  @override
+  State<AvatarWidget> createState() => _AvatarWidgetState();
+}
+
+class _AvatarWidgetState extends State<AvatarWidget> {
+  bool like = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,7 +33,7 @@ class avatarWidget extends StatelessWidget {
                 margin: EdgeInsets.only(top: 24 + 40),
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: ExactAssetImage(image),
+                    image: ExactAssetImage(widget.image),
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -47,21 +53,30 @@ class avatarWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 child: Image.asset(
-                  image,
+                  widget.image,
                   fit: BoxFit.contain,
                 ),
               ),
             ),
-            Container(
-              alignment: Alignment.topRight,
-              margin: EdgeInsets.only(bottom: 180 - 8, right: 24 + 24 + 24),
-              child: SvgPicture.asset(AppVectors.heart, color: AppColors.white),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  like = !like;
+                });
+              },
+              child: Container(
+                alignment: Alignment.topRight,
+                margin: EdgeInsets.only(
+                    bottom: 180 - 8 - 16, right: 24 + 24 + 24 + 16),
+                child: SvgPicture.asset(AppVectors.heart,
+                    color: like ? AppColors.redIcon : AppColors.white),
+              ),
             ),
           ],
         ),
         Container(
           margin: EdgeInsets.only(top: 16),
-          child: Text(title,
+          child: Text(widget.title,
               style: TextStyle(
                   fontFamily: 'SF Pro Display',
                   fontSize: 18,

@@ -1,18 +1,18 @@
 import 'package:exercise_1/constants/colors/color.dart';
 import 'package:exercise_1/constants/vector.dart';
-import 'package:exercise_1/views/navigation/navigationBar.dart';
+import 'package:exercise_1/views/navigation/navigation_bar.dart';
 import 'package:exercise_1/views/podcart/podcartDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants/image.dart';
 import '../../models/podcastModel.dart';
-import '../navigation/curvedNavigationItem.dart';
-import '../navigation/navigation.dart';
-import 'components/itemCategory.dart';
-import 'components/itemPodcart.dart';
-import 'components/itemTrending.dart';
-import 'components/searchWidget.dart';
+import '../navigation/curved_navigation_Item.dart';
+import '../navigation/curved_navigation_bar.dart';
+import 'components/item_category.dart';
+import 'components/item_podcart.dart';
+import 'components/item_trending.dart';
+import 'components/search_widget.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -95,12 +95,12 @@ class _DashboardState extends State<Dashboard> {
           color: AppColors.background,
         ),
         SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.only(left: 16, right: 16, top: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.only(left: 16, right: 16, top: 12),
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
@@ -148,156 +148,165 @@ class _DashboardState extends State<Dashboard> {
                     )
                   ],
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 24),
-                  child: const Text('Looking for podcast channels',
-                      style: TextStyle(
-                          fontFamily: 'SF Pro Display',
-                          fontSize: 14,
-                          color: AppColors.white,
-                          fontWeight: FontWeight.w600)),
-                ),
-                const searchWidget(),
-                Container(
-                  margin: const EdgeInsets.only(top: 16),
-                  child: const Text('Trending Podcart',
-                      style: TextStyle(
-                          fontFamily: 'SF Pro Display',
-                          fontSize: 14,
-                          color: AppColors.white,
-                          fontWeight: FontWeight.w600)),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 16),
-                  height: 52 * 2,
-                  child: ListView.builder(
-                      itemCount: 4,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return (index == 0)
-                            ? itemTrending(
-                                gradient: yellowGradient,
-                                stops: stops1,
-                                tranform: tranform1,
-                                title: 'Education about life',
-                                description:
-                                    'This is a podcart about education in your life',
-                                image: AppImages.education,
-                              )
-                            : (index == 1)
-                                ? (itemTrending(
-                                    gradient: adviceGradient,
-                                    stops: stops2,
-                                    tranform: tranform2,
-                                    title: 'Society is worser',
-                                    description:
-                                        'This is a podcart about education in your life',
-                                    image: AppImages.society))
-                                : (index == 2)
-                                    ? (itemTrending(
-                                        gradient: yellowGradient,
-                                        stops: stops3,
-                                        tranform: tranform3,
-                                        title: 'Sports',
-                                        description:
-                                            'This is a podcart about education in your life',
-                                        image: AppImages.sport))
-                                    : itemTrending(
-                                        gradient: adviceGradient,
-                                        stops: stops4,
-                                        tranform: tranform4,
-                                        title: 'Films',
-                                        description:
-                                            'This is a podcart about education in your life',
-                                        image: AppImages.film);
-                      }),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 16),
-                  child: Row(
-                    children: [
-                      const Text('Categories',
-                          style: TextStyle(
-                              fontFamily: 'SF Pro Display',
-                              fontSize: 14,
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w600)),
-                      const SizedBox(width: 7),
-                      SvgPicture.asset(
-                        AppVectors.arrow,
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 16, right: 16, top: 12),
+                margin: const EdgeInsets.only(top: 24),
+                child: const Text('Looking for podcast channels',
+                    style: TextStyle(
+                        fontFamily: 'SF Pro Display',
+                        fontSize: 14,
                         color: AppColors.white,
-                      ),
-                      const Spacer(),
-                      const Text('View all',
-                          style: TextStyle(
-                              fontFamily: 'SF Pro Display',
-                              fontSize: 14,
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w400)),
-                    ],
-                  ),
+                        fontWeight: FontWeight.w600)),
+              ),
+              const SearchWidget(),
+              Container(
+                padding: EdgeInsets.only(left: 16, right: 16, top: 12),
+                margin: const EdgeInsets.only(top: 16),
+                child: const Text('Trending Podcart',
+                    style: TextStyle(
+                        fontFamily: 'SF Pro Display',
+                        fontSize: 14,
+                        color: AppColors.white,
+                        fontWeight: FontWeight.w600)),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 16, right: 16, top: 12),
+                margin: EdgeInsets.only(top: 16),
+                height: 52 * 2,
+                child: ListView.builder(
+                    itemCount: 4,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return (index == 0)
+                          ? ItemTrending(
+                              gradient: yellowGradient,
+                              stops: stops1,
+                              tranform: tranform1,
+                              title: 'Education about life',
+                              description:
+                                  'This is a podcart about education in your life',
+                              image: AppImages.education,
+                              index: index)
+                          : (index == 1)
+                              ? (ItemTrending(
+                                  gradient: adviceGradient,
+                                  stops: stops2,
+                                  tranform: tranform2,
+                                  title: 'Society is worser',
+                                  description:
+                                      'This is a podcart about education in your life',
+                                  index: index,
+                                  image: AppImages.society))
+                              : (index == 2)
+                                  ? (ItemTrending(
+                                      gradient: yellowGradient,
+                                      stops: stops3,
+                                      tranform: tranform3,
+                                      index: index,
+                                      title: 'Sports',
+                                      description:
+                                          'This is a podcart about education in your life',
+                                      image: AppImages.sport))
+                                  : ItemTrending(
+                                      gradient: adviceGradient,
+                                      stops: stops4,
+                                      tranform: tranform4,
+                                      title: 'Films',
+                                      index: index,
+                                      description:
+                                          'This is a podcart about education in your life',
+                                      image: AppImages.film);
+                    }),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 16, right: 16, top: 12),
+                margin: const EdgeInsets.only(top: 16),
+                child: Row(
+                  children: [
+                    const Text('Categories',
+                        style: TextStyle(
+                            fontFamily: 'SF Pro Display',
+                            fontSize: 14,
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w600)),
+                    const SizedBox(width: 7),
+                    SvgPicture.asset(
+                      AppVectors.arrow,
+                      color: AppColors.white,
+                    ),
+                    const Spacer(),
+                    const Text('View all',
+                        style: TextStyle(
+                            fontFamily: 'SF Pro Display',
+                            fontSize: 14,
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w400)),
+                  ],
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 16),
-                  height: 52,
-                  child: ListView.builder(
-                      itemCount: 4,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return (index == 0)
-                            ? itemCategory(
-                                gradient: orangeGradient,
-                                stops: stops1,
-                                tranform: tranform1,
-                                category: 'Education',
-                              )
-                            : (index == 1)
-                                ? (itemCategory(
-                                    gradient: blueGradient,
-                                    stops: stops2,
-                                    tranform: tranform2,
-                                    category: 'Society',
-                                  ))
-                                : (index == 2)
-                                    ? (itemCategory(
-                                        gradient: greenGradient,
-                                        stops: stops3,
-                                        tranform: tranform3,
-                                        category: 'Sports',
-                                      ))
-                                    : itemCategory(
-                                        gradient: redGradient,
-                                        stops: stops4,
-                                        tranform: tranform4,
-                                        category: 'Films',
-                                      );
-                      }),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 16),
+                padding: EdgeInsets.only(left: 16, right: 16, top: 12),
+                height: 52,
+                child: ListView.builder(
+                    itemCount: 4,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return (index == 0)
+                          ? ItemCategory(
+                              gradient: orangeGradient,
+                              stops: stops1,
+                              tranform: tranform1,
+                              category: 'Education',
+                            )
+                          : (index == 1)
+                              ? (ItemCategory(
+                                  gradient: blueGradient,
+                                  stops: stops2,
+                                  tranform: tranform2,
+                                  category: 'Society',
+                                ))
+                              : (index == 2)
+                                  ? (ItemCategory(
+                                      gradient: greenGradient,
+                                      stops: stops3,
+                                      tranform: tranform3,
+                                      category: 'Sports',
+                                    ))
+                                  : ItemCategory(
+                                      gradient: redGradient,
+                                      stops: stops4,
+                                      tranform: tranform4,
+                                      category: 'Films',
+                                    );
+                    }),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 16),
+                padding: EdgeInsets.only(left: 16, right: 16, top: 12),
+                child: Row(
+                  children: const [
+                    Text('Best Podcast Episodes',
+                        style: TextStyle(
+                            fontFamily: 'SF Pro Display',
+                            fontSize: 14,
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w600)),
+                    Spacer(),
+                    Text('View all',
+                        style: TextStyle(
+                            fontFamily: 'SF Pro Display',
+                            fontSize: 14,
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w400)),
+                  ],
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 16),
-                  child: Row(
-                    children: const [
-                      Text('Best Podcast Episodes',
-                          style: TextStyle(
-                              fontFamily: 'SF Pro Display',
-                              fontSize: 14,
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w600)),
-                      Spacer(),
-                      Text('View all',
-                          style: TextStyle(
-                              fontFamily: 'SF Pro Display',
-                              fontSize: 14,
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w400)),
-                    ],
-                  ),
-                ),
-                bestPodcastWidget(
-                  pobList: pobList,
-                ),
-              ],
-            ),
+              ),
+              bestPodcastWidget(
+                pobList: pobList,
+              ),
+            ],
           ),
         ),
         Container(
@@ -317,16 +326,22 @@ class bestPodcastWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 400,
-      child: ListView.builder(
+      margin: EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(top: 16, left: 8, right: 8),
+      child: SingleChildScrollView(
+        child: ListView.builder(
           itemCount: pobList.length,
+          shrinkWrap: true,
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
-            return itemPodcart(
+            return ItemPodcart(
               pob: pobList[index],
               podList: pobList,
             );
             ;
-          }),
+          },
+        ),
+      ),
     );
   }
 }

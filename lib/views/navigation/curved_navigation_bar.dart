@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:exercise_1/constants/colors/color.dart';
-import 'package:exercise_1/views/navigation/curvedNavigationItem.dart';
+import 'package:exercise_1/views/navigation/curved_navigation_Item.dart';
 import 'package:exercise_1/views/navigation/nav_custom_painter.dart';
 import 'package:flutter/material.dart';
 
-import 'narBarItem.dart';
+import 'navigation_bar_item.dart';
 
 typedef _LetIndexPage = bool Function(int value);
 
@@ -198,98 +198,93 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
             bottom: 0,
             child: SizedBox(
               height: widget.height,
-              child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: Row(
-                  children: widget.items.map((item) {
-                    return NavBarItemWidget(
-                      onTap: (value) {
-                        if (!widget
-                                .letIndexChange(widget.items.indexOf(item)) ||
-                            _animationController.isAnimating) {
-                          return;
+              child: Row(
+                children: widget.items.map((item) {
+                  return NavBarItemWidget(
+                    onTap: (value) {
+                      if (!widget.letIndexChange(widget.items.indexOf(item)) ||
+                          _animationController.isAnimating) {
+                        return;
+                      }
+                      if (widget.onTap != null) {
+                        widget.onTap!(widget.items.indexOf(item));
+                      }
+                      final newPosition = widget.items.indexOf(item) / _length;
+                      setState(() {
+                        _startingPos = _pos;
+                        _endingIndex = widget.items.indexOf(item);
+                        _animationController.animateTo(
+                          newPosition,
+                          duration: widget.animationDuration,
+                          curve: widget.animationCurve,
+                        );
+                        if (widget.items.indexOf(item) == 0) {
+                          c1 = true;
+                          c2 = false;
+                          c3 = false;
+                          c4 = false;
+                          c5 = false;
                         }
-                        if (widget.onTap != null) {
-                          widget.onTap!(widget.items.indexOf(item));
+                        if (widget.items.indexOf(item) == 1) {
+                          c1 = false;
+                          c2 = true;
+                          c3 = false;
+                          c4 = false;
+                          c5 = false;
                         }
-                        final newPosition =
-                            widget.items.indexOf(item) / _length;
-                        setState(() {
-                          _startingPos = _pos;
-                          _endingIndex = widget.items.indexOf(item);
-                          _animationController.animateTo(
-                            newPosition,
-                            duration: widget.animationDuration,
-                            curve: widget.animationCurve,
-                          );
-                          if (widget.items.indexOf(item) == 0) {
-                            c1 = true;
-                            c2 = false;
-                            c3 = false;
-                            c4 = false;
-                            c5 = false;
-                          }
-                          if (widget.items.indexOf(item) == 1) {
-                            c1 = false;
-                            c2 = true;
-                            c3 = false;
-                            c4 = false;
-                            c5 = false;
-                          }
-                          if (widget.items.indexOf(item) == 2) {
-                            c1 = false;
-                            c2 = false;
-                            c3 = true;
-                            c4 = false;
-                            c5 = false;
-                          }
-                          if (widget.items.indexOf(item) == 3) {
-                            c1 = false;
-                            c2 = false;
-                            c3 = false;
-                            c4 = true;
-                            c5 = false;
-                          }
-                          if (widget.items.indexOf(item) == 4) {
-                            c1 = false;
-                            c2 = false;
-                            c3 = false;
-                            c4 = false;
-                            c5 = true;
-                          }
-                        });
-                      },
-                      position: _pos,
-                      length: _length,
-                      index: widget.items.indexOf(item),
-                      child: Center(child: item.child),
-                      label: item.label,
-                      labelStyle: TextStyle(
-                          fontFamily: 'SF Pro Display',
-                          fontSize: 8,
-                          color: (widget.items.indexOf(item) == 0)
-                              ? (c1 == true)
-                                  ? AppColors.redIcon
-                                  : AppColors.white
-                              : (widget.items.indexOf(item) == 1)
-                                  ? (c2 == true)
-                                      ? AppColors.redIcon
-                                      : AppColors.white
-                                  : (widget.items.indexOf(item) == 2)
-                                      ? (c3 == true)
-                                          ? AppColors.redIcon
-                                          : AppColors.white
-                                      : (widget.items.indexOf(item) == 3)
-                                          ? (c4 == true)
-                                              ? AppColors.redIcon
-                                              : AppColors.white
-                                          : (c5 == true)
-                                              ? AppColors.redIcon
-                                              : AppColors.white,
-                          fontWeight: FontWeight.w500),
-                    );
-                  }).toList(),
-                ),
+                        if (widget.items.indexOf(item) == 2) {
+                          c1 = false;
+                          c2 = false;
+                          c3 = true;
+                          c4 = false;
+                          c5 = false;
+                        }
+                        if (widget.items.indexOf(item) == 3) {
+                          c1 = false;
+                          c2 = false;
+                          c3 = false;
+                          c4 = true;
+                          c5 = false;
+                        }
+                        if (widget.items.indexOf(item) == 4) {
+                          c1 = false;
+                          c2 = false;
+                          c3 = false;
+                          c4 = false;
+                          c5 = true;
+                        }
+                      });
+                    },
+                    position: _pos,
+                    length: _length,
+                    index: widget.items.indexOf(item),
+                    child: Center(child: item.child),
+                    label: item.label,
+                    labelStyle: TextStyle(
+                        fontFamily: 'SF Pro Display',
+                        fontSize: 8,
+                        color: (widget.items.indexOf(item) == 0)
+                            ? (c1 == true)
+                                ? AppColors.redIcon
+                                : AppColors.white
+                            : (widget.items.indexOf(item) == 1)
+                                ? (c2 == true)
+                                    ? AppColors.redIcon
+                                    : AppColors.white
+                                : (widget.items.indexOf(item) == 2)
+                                    ? (c3 == true)
+                                        ? AppColors.redIcon
+                                        : AppColors.white
+                                    : (widget.items.indexOf(item) == 3)
+                                        ? (c4 == true)
+                                            ? AppColors.redIcon
+                                            : AppColors.white
+                                        : (c5 == true)
+                                            ? AppColors.redIcon
+                                            : AppColors.white,
+                        fontWeight: FontWeight.w500),
+                  );
+                }).toList(),
               ),
             ),
           ),

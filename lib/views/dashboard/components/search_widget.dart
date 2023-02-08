@@ -3,16 +3,16 @@ import 'package:exercise_1/constants/vector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class searchWidget extends StatefulWidget {
-  const searchWidget({
+class SearchWidget extends StatefulWidget {
+  const SearchWidget({
     super.key,
   });
 
   @override
-  State<searchWidget> createState() => _searchWidgetState();
+  State<SearchWidget> createState() => _SearchWidgetState();
 }
 
-class _searchWidgetState extends State<searchWidget> {
+class _SearchWidgetState extends State<SearchWidget> {
   TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
